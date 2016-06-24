@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1><%= @poll.question %></h1>
+    <hr>
+    <%= react_component("PollAdminApp",
+                     props: @props) %>
+  </div>
+</div>
