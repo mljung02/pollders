@@ -38,7 +38,7 @@ export default class Overview extends React.Component {
 
   get selectedFolderPolls(){
     let folderPolls
-    if (!this.props.polls[0] || this.props.polls[0].length === 0){
+    if (!this.props.polls[this.state.selectedFolder] || this.props.polls[this.state.selectedFolder].length === 0){
       return []
     }
     const folderId = this.selectedFolderId
