@@ -43,7 +43,7 @@ export default class Overview extends React.Component {
     }
     const folderId = this.selectedFolderId
     this.props.polls.forEach(pollArray => {
-      if (pollArray[0].folder_id === folderId) {
+      if (pollArray[0] && pollArray[0].folder_id === folderId) {
         folderPolls = pollArray
       }
     })
