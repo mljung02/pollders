@@ -16,7 +16,6 @@ class PollsController < ApplicationController
       }
       render :new
     else
-      binding.pry
       @poll = new_poll(@folder)
       if @poll.save
         choices_params.each do |choice|
