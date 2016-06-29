@@ -24,6 +24,7 @@ class PollsController < ApplicationController
     if is_admin(poll_user)
       @poll.unseen_responses = 0
       @poll.save
+      @admin_features = admin_features(@poll.id, folder.id, poll_user)
     end
     @props = {
       user_id: poll_user.id,
@@ -101,7 +102,19 @@ class PollsController < ApplicationController
   def mark_taken(poll_id)
     polls_taken << poll_id
   end
+
   def polls_taken
     session[:polls_taken] ||= []
+  end
+
+  def admin_features(poll_id, folder_id, poll_user)
+    if is_admin(poll_user)
+      OpenStruct.new(
+        path: "https://shielded-cliffs-69447.herokuapp.com/#{poll_user.id}/#{folder_id}/#{poll_id}/take",
+        is_admin?: true
+      )
+    else
+      OpenStruct.new( is_admin?: false )
+    end
   end
 end

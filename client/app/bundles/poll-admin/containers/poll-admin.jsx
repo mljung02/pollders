@@ -5,7 +5,6 @@ export default class PollAdmin extends React.Component {
     user_id: PropTypes.number,
     folder_id: PropTypes.number,
     poll: PropTypes.object,
-    admin: PropTypes.bool
   };
 
   constructor(props, context) {
@@ -60,21 +59,6 @@ export default class PollAdmin extends React.Component {
     }
   }
 
-  get adminFeatures(){
-    return this.props.admin ? (
-      <div id="admin-features">
-        Share This Poll!
-        <hr/>
-        {this.tweet}
-      </div>) : null
-  }
-
-  get tweet(){
-    return (
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url={this.takeURL} data-text={this.question}>Tweet this poll!</a>
-    )
-  }
-
   get question(){
     return this.props.poll.question
   }
@@ -87,7 +71,6 @@ export default class PollAdmin extends React.Component {
     return (
       <div id="poll-admin">
           {this.choices}
-          {this.adminFeatures}
       </div>
     );
   }
