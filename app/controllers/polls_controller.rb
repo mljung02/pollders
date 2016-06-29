@@ -21,10 +21,10 @@ class PollsController < ApplicationController
     poll_user = User.find(params[:user_id])
     folder = poll_user.folders.find(params[:folder_id])
     @poll = folder.polls.find(params[:id])
+    @admin_features = admin_features(@poll.id, folder.id, poll_user)
     if is_admin(poll_user)
       @poll.unseen_responses = 0
       @poll.save
-      @admin_features = admin_features(@poll.id, folder.id, poll_user)
     end
     @props = {
       user_id: poll_user.id,
