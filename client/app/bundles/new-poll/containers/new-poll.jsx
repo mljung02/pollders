@@ -5,7 +5,8 @@ export default class NewPoll extends React.Component {
   static propTypes = {
     folders: PropTypes.array,
     selectedFolderId: PropTypes.number,
-    authenticity_token: PropTypes.string
+    authenticity_token: PropTypes.string,
+    error: PropTypes.string
   };
 
   constructor(props, context) {
@@ -31,10 +32,17 @@ export default class NewPoll extends React.Component {
     })
   }
 
+  get error() {
+    return this.props.error ? (
+      <div>{this.props.error}</div>
+    ) : null
+  }
+
   render () {
     return (
       <div id="new-poll-form">
         <div class="row" id="folder-overview__top">
+          {this.error}
           <label for="folder-select">Folder: </label>
           <select name="folder" id="folder-select"
             defaultValue={this.state.selectedFolderId}

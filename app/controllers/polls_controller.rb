@@ -6,14 +6,26 @@ class PollsController < ApplicationController
 
   def create
     @folder = current_user.folders.find(params[:folder_id])
-    @poll = new_poll(@folder)
-    if @poll.save
-      choices_params.each do |choice|
-        @poll.choices.new(content: choice, votes: 0).save
-      end
-      redirect_to "/polls/#{session[:user_id]}/#{@folder.id}/#{@poll.id}"
+    binding.pry
+    if poll_params[:expiration].empty? || poll_params[:question].empty? || invalid_choices?
+      @props = {
+        folders: current_user.folders,
+        selectedFolderId: params[:folder_id].to_i,
+        error: 'poll did not save, make sure all fields are filled',
+        authenticity_token: form_authenticity_token
+      }
+      render :new
     else
-      redirect_to user_path(current_user)
+      binding.pry
+      @poll = new_poll(@folder)
+      if @poll.save
+        choices_params.each do |choice|
+          @poll.choices.new(content: choice, votes: 0).save
+        end
+        redirect_to "/polls/#{session[:user_id]}/#{@folder.id}/#{@poll.id}"
+      else
+        redirect_to user_path(current_user)
+      end
     end
   end
 
@@ -115,5 +127,13 @@ class PollsController < ApplicationController
     else
       OpenStruct.new( is_admin?: false )
     end
+  end
+
+  def invalid_choices?
+    invalid = false
+    choices_params.each do |choice|
+      invalid = true if choice.empty?
+    end
+    invalid
   end
 end
