@@ -49,7 +49,6 @@ class PollsController < ApplicationController
     @poll = folder.polls.find(params[:id])
     @poll.active = false if @poll.expiration < Date.today
     @poll.save
-    binding.pry
     redirect_to "/polls/#{params[:user_id]}/#{folder.id}/#{@poll.id}" unless (@poll.active && !polls_taken.include?(@poll.id))
     @props = {
       poll_id: @poll.id,
