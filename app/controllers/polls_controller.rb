@@ -6,7 +6,6 @@ class PollsController < ApplicationController
 
   def create
     @folder = current_user.folders.find(params[:folder_id])
-    binding.pry
     if poll_params[:expiration].empty? || poll_params[:question].empty? || invalid_choices?
       @props = {
         folders: current_user.folders,
