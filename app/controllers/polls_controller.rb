@@ -109,7 +109,7 @@ class PollsController < ApplicationController
   def admin_features(poll_id, folder_id, poll_user)
     if is_admin(poll_user)
       OpenStruct.new(
-        path: "https://shielded-cliffs-69447.herokuapp.com/#{poll_user.id}/#{folder_id}/#{poll_id}/take",
+        path: "https://shielded-cliffs-69447.herokuapp.com/polls/#{poll_user.id}/#{folder_id}/#{poll_id}/take",
         is_admin?: true
       )
     else
